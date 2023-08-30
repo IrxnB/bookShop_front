@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { useDelayedResponse } from './hooks/useDelayedResponse';
+import PropertyForm from './components/propertySearch/PropertyForm';
+import BookShortInfoGrid  from './components/BookShortInfoGrid';
 
+const mockedProperties =  [{id: 1, name: 'author', type: 'text'}, {id: 1, name: 'year', type: 'number'}];
+const mockAllBooks = [{id: 1, name: 'hary potter 1'}, {id: 2, name: 'hary potter 2'}, {id: 3, name: 'hary potter 3'}, {id: 4, name: 'hary potter 4'}]
 function App() {
+  const {loading: loadingProps, data: propertiesData } = useDelayedResponse(mockedProperties);
+  const {loading: loadingBooks, data: booksData} = useDelayedResponse(mockAllBooks);
+
+
+  const handlePropertySubmit = (books) => {
+      return;
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PropertyForm propertyTypes={propertiesData} onSubmit={handlePropertySubmit}></PropertyForm>
+      <BookShortInfoGrid books={booksData}></BookShortInfoGrid>
+      
     </div>
+    
   );
 }
 
